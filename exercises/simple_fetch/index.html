@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amiibo Fun</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header>
+		<h1>Amiibo Fun</h1>
+		<p>This is a small app that uses the API found at <a href="https://amiiboapi.com/">Amiibo API</a> to display information about Amiibo figurines. We use fetch() to request the data.</p>
+	</header>
+	<main>
+		<div id="topics">
+			<!--I use the property name to get the amiibos but I could use any property from the api to select objects-->
+			<button id="t01" type="button" value="?tail=03530902">Topic 01</button> <!--BOTW Link-->
+			<button id="t02" type="button" value="?tail=02450502">Topic 02</button> <!--Reese Figurine-->
+			<button id="t03" type="button" value="?tail=036f1202">Topic 03</button> <!--FE Chrom-->
+		</div>
+		<div id="info"></div><!--This is the div that the script inserts the variable html into-->
+	</main>
+	<footer>
+		<p>Exercise completed by MReimayer</p>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+		<script src="script.js"></script>
+	</footer>
+</body>
+</html>

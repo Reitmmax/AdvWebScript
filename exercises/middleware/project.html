@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Middleware Exercise</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Middleware and Routing</h2>
+		<h4>index.js</h4>
+		<pre><code>		
+		// Importing the 'express' module
+const express = require('express');
+
+// Creating an Express application
+const app = express();
+
+
+
+const dater = require('./dater');
+
+const logger = require('./logger');
+
+const info = require('./routes/apiInfo');
+
+app.use(dater);
+app.use('/api/info',info);
+
+// Handling GET request to the landing page with the logger and dater middleware
+app.get('/', logger, dater, (req, res) =&gt; {
+  res.status(200).send(`Welcome! Today's date is ${req.formattedToday}.`);
+	res.end;
+});
+
+
+
+// Starting the server
+app.listen(8080, () =&gt; {
+  console.log(`Server running at http://localhost:8080/`);
+});
+
+		</code></pre>
+		
+		<p>This is my server code. This code is using middleware from external sources</p>
+		
+		<h2>Middleware</h2>
+		<h4>dater.js</h4>
+		<pre><code>
+		// JavaScript Document
+//dater function
+const dater = (req, res, next) =&gt; {
+    const today = new Date();
+    const yyyy = today.getFullYear(); //get year
+    let mm = today.getMonth() + 1; // adds 1 because index starts at 0
+    let dd = today.getDate(); //gets date
+    
+    if (dd &lt; 10) dd = '0' + dd; //puts 0 at the beginning if its jan-oct
+    if (mm &lt; 10) mm = '0' + mm; // puts 0 at the beginning if its 1-9
+    
+	//cannot send variable directly, therefore a request rather than a var.
+    req.formattedToday = dd + '/' + mm + '/' + yyyy;
+	//moves to next middleware
+    next();
+};
+
+module.exports = dater;
+		</pre></code>
+		
+		<h4>logger.js</h4>
+		<pre><code>
+		// JavaScript Document
+const logger = (req, res, next) =&gt; {
+  console.log(&quot;Logged.&quot;);
+  next();
+};
+
+module.exports = logger;
+		</pre></code>
+		<p>These are my middleware. My logger just sends text to the console, while my dater sends the current date to the webpage and displays it</p>
+		<h2>Routing</h2>
+
+		<h4>apiInfoCon.js</h4>
+		<pre><code>
+		const { items } = require('../../data');
+
+// Callback function for /api/info
+const getInfo = (req, res) =&gt; {
+  res.status(200).json({ items });
+};
+
+// Callback function for /api/info/:id
+const selectSingle = (req, res) =&gt; {
+  const { id } = req.params;
+  const singleItem = items.find((item) =&gt; item.id === Number(id));
+  res.json(singleItem);
+};
+
+module.exports = { getInfo, selectSingle };
+
+		</pre></code>
+		<p>This is my controller. It creates callback functions that my router below calls.</p>
+			<h4>apiInfo.js</h4>
+		<pre><code>
+		const express = require('express');
+const router = express.Router();
+const { getInfo, selectSingle } = require('./controllers/apiInfoCon');
+
+// api/info routing
+router.get('/', getInfo);
+
+// api/info routing with ID
+router.get('/:id', selectSingle);
+
+module.exports = router;
+
+		</pre></code>
+		<p></p>
+		<h4>data.js</h4>
+		<pre><code>
+		const items = [
+    {
+        id: 1,
+        name: 'paper',
+        common: 1,
+        strength: 'rock',
+        weakness: 'scissors',
+        fingers: 5,
+        elem: 'wood',
+        desc: 'A flat material best used for wrapping opponents.',
+    },
+    {
+        id: 2,
+        name: 'rock',
+        common: 1,
+        strength: 'scissors',
+        weakness: 'paper',
+        fingers: 0,
+        elem: 'earth',
+        desc: 'A bulky object capable of crushing but not piercing.',
+    },
+    {
+        id: 3,
+        name: 'scissors',
+        common: 1,
+        strength: 'paper',
+        weakness: 'rock',
+        fingers: 2,
+        elem: 'metal',
+        desc: 'A very sharp tool capable of slicing fibers.',
+    },
+    {
+        id: 4,
+        name: 'cleaver',
+        common: 2,
+        strength: 'paper',
+        weakness: 'rock',
+        fingers: 4,
+        elem: 'metal',
+        desc: 'A heavy, bladed weapon meant for slicing.'
+    }
+]
+module.exports = {items}
+		</pre></code>
+	<p>This code is routing my data file. Essentially, these are looking for my slug, in this case /api/info, and if you were to put a / and number after info it would find the ID and display it.</p>
+		<h2>Information Display</h2>
+		<h4>Middleware</h4>
+		<img src="images/console.png" alt="">
+		<br>
+		<img src="images/landing.png" alt="">
+		<h4>/api/info</h4>
+		<img src="images/api.png" alt="">
+		<h4>api/info/1</h4>
+		<img src="images/apilook.png" alt="">
+		
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>HTTP and Web Storage</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Streams</h2>
+		<h4>bigfile-make.js</h4>
+		<pre><code>		
+		// JavaScript Document
+const { writeFileSync } = require('fs');
+//makes a file with 10000 lines of text
+for (let i = 0; i &lt; 10000; i++) {
+    writeFileSync('./big.txt', `Hello world ${i}n`, {flag: 'a'});
+};
+		</code></pre>
+		
+		<p>All this code does is make a large file</p>
+		
+		
+		<h4>index.js</h4>
+		<pre><code>
+	// JavaScript Document
+const {createReadStream} = require('fs');
+const stream = createReadStream('./big.txt');
+
+stream.on('data',(result) =&gt; {
+    console.log(result);
+});
+
+stream.on('error', (err) =&gt; {
+    console.log(`ALERT! ALERT! ALERT! n${err}`)
+});
+		</pre></code>
+		<p>This code basically buffers data so it doesn't show up all at once</p>
+		<h2>Displays:</h2>
+		<img src="images/streams.png" alt="">
+		
+		<h4>server.js</h4>
+		<pre><code>
+	// JavaScript Document
+
+const http = require('http');
+const fs = require('fs');
+
+
+http.createServer((req,res) =&gt; {
+//loads chunks of data at a time
+    const fileSteam = fs.createReadStream('./big.txt', 'utf-8');
+    fileSteam.on('open', () =&gt; {
+        fileSteam.pipe(res);
+    });
+
+	
+    fileSteam.on('error', (err) =&gt; {
+        res.end(`${err}`);
+    });
+}).listen(8080);
+		</pre></code>
+		<p>This code turns the text file into html and displays it on a server. This does the same thing that index.js does, just as a webpage.</p>
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

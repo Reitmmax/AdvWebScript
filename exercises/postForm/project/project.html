@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>HTTP and Web Storage</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../../index.html">Home</a></li>
+			<li><a href="../../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>POST Method</h2>
+		<h4>validator.js</h4>
+		<pre><code>		
+		&quot;use strict&quot;;
+      $('#opt01').focus(); // Focus on #opt01 when the page loads
+
+      $('#store').submit(function(event) {
+        // Get the values of input fields
+        const opt01 = $('#opt01').val();
+        const opt02 = $('#opt02').val();
+        const opt03 = $('#opt03').val();
+
+        // Set a flag for validation
+        let isValid = true;
+
+        // Validation for opt01
+        if (opt01 === '' || isNaN(opt01) || opt01 === undefined || Number(opt01) &lt; 0) {
+          isValid = false;
+          $('#mess').text('Please enter a number.');
+          $('#01').text('*');
+          $('#opt01').focus();
+        } else {
+          $('#01').text('');
+        }
+
+        // Validation for opt02
+        if (opt02 === '' || isNaN(opt02) || opt02 === undefined || Number(opt02) &lt; 0) {
+          isValid = false;
+          $('#mess').text('Please enter a number.');
+          $('#02').text('*');
+          $('#opt02').focus();
+        } else {
+          $('#02').text('');
+        }
+
+        // Validation for opt03
+        if (opt03 === '' || isNaN(opt03) || opt03 === undefined || Number(opt03) &lt; 0) {
+          isValid = false;
+          $('#mess').text('Please enter a number.');
+          $('#03').text('*');
+          $('#opt03').focus();
+        } else {
+          $('#03').text('');
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+          event.preventDefault();
+        }
+      });
+    
+    
+		</code></pre>
+		
+		<p>This code is used to validate the data put into the inputs of the html file. As long as what is put in is a number, the code will work, if the value isn't a number, it displays code that shows an error.</p>
+		
+		<h4>server.js</h4>
+		<pre><code>
+		// Import the express module
+const express = require('express');
+
+// Set up express app
+const app = express();
+
+// Import the body-parser module
+const bodyParser = require('body-parser');
+
+// Import lodash
+const _ = require('lodash');
+
+// Middleware to parse JSON bodies
+app.use(bodyParser.json());
+
+//decides how info in encoded into url, when set to false we can treat the information as any type
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Route for the home page
+app.get('/', (req, res) =&gt; {
+  res.sendFile(__dirname + '/index.html');
+});
+
+// Route for serving the style.css file
+app.get('/style.css', (req, res) =&gt; {
+  res.sendFile(__dirname + '/style.css');
+});
+
+// Route for serving the validator.js file
+app.get('/validator.js', (req, res) =&gt; {
+  res.sendFile(__dirname + '/validator.js');
+});
+
+
+// Route for handling the /bought POST request
+app.post('/bought', (req, res) =&gt; {
+  // Retrieve the values from the request body
+  let opt01 = req.body.opt01;
+  let opt02 = req.body.opt02;
+  let opt03 = req.body.opt03;
+
+  // Set the prices for each item
+  let price01 = _.multiply(opt01, 12.50);
+  let price02 = _.multiply(opt02, 5.75);
+  let price03 = _.multiply(opt03, 8);
+
+  // Set the tax rate
+  let taxes = 0.073;
+
+  // Calculate the total price without taxes
+  let bought = price01 + price02 + price03;
+
+  // Calculate the partial tax amount
+  let partial = _.multiply(bought, taxes);
+
+  // Calculate the total price including taxes
+  let Total = (bought + partial).toFixed(2);
+
+  // Send the response with the total price
+  res.status(200).send(`
+    &lt;head&gt;
+      &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;&gt;
+      &lt;title&gt;JS Store Total&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;total&quot;&gt;
+        &lt;p&gt;&lt;b&gt;Total:&lt;/b&gt; $${Total}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/body&gt;
+  `);
+});
+
+// Start the server
+
+app.listen(8080, () =&gt; {
+  console.log(`App running at http://localhost:8080/`);
+});
+		
+		
+		</code></pre>
+		<p>The server code allows the html, css, and js files to be displayed on the server. It uses the validation code above to make sure the values are valid, then does the math of all the items bought.</p>
+		<h3>Landing</h3>
+		<img src="images/index.png" alt="">
+		<h3>Bought</h3>
+		<img src="images/bought.png" alt="">
+		
+		
+		
+		
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>JS Store Front</title>
+</head>
+<body>
+    <main>
+        <form id="store" action="/bought" method="post">
+            <fieldset>
+                <legend>Store Front</legend>
+                <div>
+                    <p id="mess"></p>
+                </div>
+                <div>
+                    <label for="opt01">Tikka Masla - $12.50</label>
+                    <input type="text" id="opt01" name="opt01" value="0">
+                    <span id="01"></span>
+                </div>
+                
+                <div>
+                    <label for="opt02">Latkes - $5.75</label>
+                    <input type="text" id="opt02" name="opt02" value="0">
+                    <span id="02"></span>
+                </div>
+                
+                <div>
+                    <label for="opt03">Takoyaki - $8</label>
+                    <input type="text" id="opt03" name="opt03" value="0">
+                    <span id="03"></span>
+                </div>
+                
+                <input type="submit" value="Buy Items">
+            </fieldset>
+        </form>
+    </main>
+    <footer>
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="validator.js"></script>
+    </footer>
+</body>
+</html>

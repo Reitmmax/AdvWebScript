@@ -1,0 +1,57 @@
+body {
+    font-size: 16px;
+}
+
+fieldset {
+    width: 400px;
+    margin: 10% auto;
+    padding: 10px;
+    border: 2px solid #43215F;
+}
+
+legend {
+    font-size: 2em;
+    font-weight: bold;
+    color: #43215F;
+}
+
+form div {
+    width: 100%;
+    margin: 10px;
+    text-indent: 2em;
+}
+
+input[type="text"] {
+    width: 4em;
+    float: right;
+    margin-right: 10px;
+    text-align: center;
+}
+
+input[type="submit"] {
+    float: right;
+    padding: 0.5em;
+}
+
+span {
+    float: right;
+    color: red;
+}
+
+#mess{
+    margin: 0;
+    text-indent: 0;
+}
+
+#mess p {
+    margin: 5px;
+}
+
+#total {
+    width: 500px;
+    margin: 30px auto;
+    padding: 15px;
+    font-size: 2em;
+    text-align: center;
+    border: 3px solid #43215F;
+}
