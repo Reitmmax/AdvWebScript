@@ -1,0 +1,24 @@
+{
+  "name": "m08pack",
+  "version": "1.0.0",
+  "description": "This is my first step to making a package. I am using Lodash",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "Lodash",
+    "Simple",
+    "First",
+    "Package"
+  ],
+  "author": "M Reitmayer",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

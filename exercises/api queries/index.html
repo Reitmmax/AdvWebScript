@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>API Queries</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		
+		
+		
+		
+		
+		<h4>index.js</h4>
+		<pre><code>		
+// JavaScript Document
+&quot;use strict&quot;
+
+const express = require('express');
+const app = express();
+const {items} = require('./data');
+
+//server
+app.get('/', (req,res)=&gt;{
+  res.send('&lt;h1&gt;Rock, Paper, Scissors Ring&lt;/h1&gt;&lt;a href=&quot;/api/items&quot;&gt;Available Items&lt;/a&gt;')
+});
+
+//grabs data from data.js
+app.get('/api/items', (req,res)=&gt;{ 
+//displays everything
+	//res.json(items);
+	
+	//displays only data called
+const newListing = items.map((item)=&gt;{
+        const {name, desc, strength, weakness} = item;
+        return {name, desc, strength, weakness}
+    })
+    res.json(newListing);
+
+});
+
+//app.get('/api/items/1', (req,res)=&gt;{ 
+//const singleItem = items.find((item)=&gt;item.id === 1)
+//     res.json(singleItem)
+//});
+
+//when you put an id at the end of the url, it shows only whats in that ID's array
+app.get('/api/items/:itemID',(req,res)=&gt;{
+	
+	console.log(req.params);
+    const {itemID} = req.params;
+    const singleItem = items.find((item)=&gt;item.id === Number(itemID));
+    res.json(singleItem);
+});
+
+
+//use query for searching certain phrases ex. /query?search=&quot;text&quot;
+app.get('/query',(req,res)=&gt;{ 
+
+
+const {search,limit} = req.query; //if user doesn't provide search, give everything
+    let sorted = [...items];
+
+	if(search){ // searches for whatever word is used to search
+        sorted = sorted.filter((item)=&gt;{
+            return item.desc.match(search);
+        })
+    }
+	//limits how much is shown if limit is in url ex. /query?search=&quot;text&quot;&amp;limit=#
+	if(limit){
+        sorted = sorted.slice(0,Number(limit))
+    }
+	
+	 //if nothing matches search query
+    if(sorted.length &lt; 1) {
+        res.status(200).json(&quot;No items matching your query were found.&quot;)
+    }
+
+    res.status(200).json(sorted); 
+});
+
+
+
+app.listen(8080,()=&gt;{
+    console.log('Server is running...');
+});
+
+		</code></pre>
+		
+		<p>This code is making a webpage. When entering the webpage, it shows "Rock, Paper, Scissors" and a link to the API I created. In the API I created, when the link is clicked, it shows whatever data is in the name, desc, strength, and weakness part of the array. If you were to add /id#, it would only show the data with the corrosponding ID. If you were to do /query?search="", then it would search for whatever text you put in the url and display it. IF there is none, then it displays: "No items matching your query were found.". You can also limit with the search if you add &amp;limit=#. </p>
+		
+		
+		<h4>data.js</h4>
+		<pre><code>
+	// JavaScript Document
+
+const items = [
+    {
+        id: 1,
+        name: 'paper',
+        common: 1,
+        strength: 'rock',
+        weakness: 'scissors',
+        fingers: 5,
+        elem: 'wood',
+        desc: 'A flat material best used for wrapping opponents.',
+    },
+    {
+        id: 2,
+        name: 'rock',
+        common: 1,
+        strength: 'scissors',
+        weakness: 'paper',
+        fingers: 0,
+        elem: 'earth',
+        desc: 'A bulky object capable of crushing but not piercing.',
+    },
+    {
+        id: 3,
+        name: 'scissors',
+        common: 1,
+        strength: 'paper',
+        weakness: 'rock',
+        fingers: 2,
+        elem: 'metal',
+        desc: 'A very sharp tool capable of slicing fibers.',
+    },
+    {
+        id: 4,
+        name: 'cleaver',
+        common: 2,
+        strength: 'paper',
+        weakness: 'rock',
+        fingers: 4,
+        elem: 'metal',
+        desc: 'A heavy, bladed weapon meant for slicing.'
+    }
+]
+//exports module
+module.exports = {items};
+		</code></pre>
+		<p>Above is the code that the url would be displaying</p>
+			
+		<h2>Main Page</h2>
+		<img src="images/main.png" alt="">
+		<h2>/api/items</h2>
+		<img src="images/apiitems.png" alt="">
+		<h2>/api/items/3</h2>
+		<img src="images/sorted.png" alt="">
+		<h2>/query?search=slicing</h2>
+		<img src="images/slicing.png" alt="">
+			
+</main>			
+			
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

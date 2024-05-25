@@ -1,0 +1,113 @@
+<!doctype html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Express</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>HTTP Server</h2>
+		<h4>m08_app.js</h4>
+		<pre><code>		
+// JavaScript Document
+'use strict'
+const express = require('express');
+const app = express();
+
+//shorthand for code above
+//const app = require('express')();
+const path = require('path');
+
+//allows all files to be read and used
+app.use(express.static('./indexbanner'));
+
+app.listen(8080, () =&gt; {
+    console.log('server listening at 8080');
+});
+
+app.get('/',(req, res)=&gt;{
+    //res.send('&lt;h1&gt;Welcome to home page&lt;/h1&gt;');
+	// res.status(200).send('&lt;h1&gt;Welcome to home page&lt;/h1&gt;');
+	res.status(200).sendFile(path.resolve(__dirname, './indexbanner/index.html'));
+	
+})
+app.get('/about',(req, res)=&gt;{
+    //res.send('&lt;h1&gt;Welcome to home page&lt;/h1&gt;');
+	 //res.status(200).send('&lt;h1&gt;About Me!&lt;/h1&gt;');
+	res.status(200).sendFile(path.resolve(__dirname, './indexbanner/about.html'));
+})
+
+app.all('*',(req,res)=&gt;{
+    //res.status(404).send('&lt;h1&gt;Resource Not Found&lt;/h1&gt;&lt;p&gt;Sorry about that. Do you want to go &lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;?');
+	res.status(200).sendFile(path.resolve(__dirname, './indexbanner/404.html'));
+})
+		</code></pre>
+		
+		<p>This is the code for my server! We are using express this time! The code allows you to go to the page that has the same slug as the functions. If you use "/about" it will take you to the about page, if you use "/", you will go to the home page, and if you use anything else you will see an error page. Compared to my last project using an HTTP server to display the pages, you will see that there is siginically less code. Thanks to Express, it allowed to to simplify the code more! I do not need to call every asset anymore because it does it for me as long as it has the folder and/or file.</p>
+		
+		
+		<h4>JSON Package</h4>
+		<pre><code>
+		{
+  &quot;name&quot;: &quot;express&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;This is a package for the express exercise&quot;,
+  &quot;main&quot;: &quot;mreitmayer_app.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;nodemon mreitmayer_app.js&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;Max Reitmayer&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;nodemon&quot;: &quot;^3.1.0&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^4.18.3&quot;
+  }
+}
+
+		
+		
+		</code></pre>
+		<p>This is my JSON package. It is very simple in that it adds both Express and nodemon to my app. </p>
+
+<h3>Webpages</h3>
+<h4>Main</h4>
+<img src="images/main.png" alt="">
+<h4>About</h4>
+<img src="images/about.png" alt="">
+<h4>404</h4>
+<img src="images/error.png" alt="">
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

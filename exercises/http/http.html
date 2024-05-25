@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>HTTP and Web Storage</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>HTTP Server</h2>
+		<h4>m07_index.js</h4>
+		<pre><code>		
+// JavaScript Document
+'use strict'
+
+const http = require('http');
+const {readFileSync} = require('fs');
+//Get Files
+const aboutpg = readFileSync('./indexbanner/about.html');
+const indexpg = readFileSync('./indexbanner/index.html');
+const mainsty = readFileSync('./indexbanner/main.css');
+const banimg = readFileSync('./indexbanner/banner_forest.png');
+
+const server = http.createServer((req,res)=&gt;{
+
+	const url = req.url;
+	   if(url === '/'){ //index
+        res.writeHead(200,{'content-type':'text/html'});
+        //res.write('&lt;h1&gt;This is a Title&lt;/h1&gt;&lt;p&gt;This is a paragraph.&lt;/p&gt;');
+		res.write(indexpg);
+        res.end();
+    } else if (url === '/main.css') {
+		 res.writeHead(200,{'content-type':'text/css'});
+       
+		res.write(mainsty);
+        res.end();
+	} else if (url === '/banner_forest.png') {
+		 res.writeHead(200,{'content-type':'image/x-png'});
+       
+		res.write(banimg);
+        res.end();
+	} else if(url === '/about'){//about
+        res.writeHead(200,{'content-type':'text/html'});
+       // res.write('&lt;h1&gt;About Us&lt;/h1&gt;&lt;p&gt;This is some about us. So many facts. Blah blah.&lt;/p&gt;');
+        res.write(aboutpg);
+		res.end();
+    } else {// error
+		res.writeHead(200,{'content-type':'text/html'});
+        res.write('&lt;h1&gt;Oops! Page not found!&lt;/h1&gt;');
+        res.end();
+	}
+	
+	
+	
+	
+	
+	
+	//Code below creates 1 webpage with the said data
+	//    res.writeHead(200,{'content-type':'text/html'});
+//	res.write('&lt;h1&gt;This is a Title&lt;/h1&gt;&lt;p&gt;This is a paragraph.&lt;/p&gt;')
+//	//res.write('This is the text after the head')
+//	//res.write('This is text.');
+//    res.end();
+});
+
+server.listen(8080);
+console.log('Server reached');
+
+		</code></pre>
+		
+		<p>This is my server code. My server is set up to localhost:8080. If the slug has nothing, it goes to my index, if it has 'about', it goes to my about page. If the slug in invalid, it displays "Oops! Page not found!" It also displays my banner image, and my stylesheet. Without putting them in the script, if I were to open the page on the server, it would not display them. It was just be a pure white page with black text and a broken image.</p>
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

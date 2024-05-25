@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Node.js Argument</title>
+</head>
+	<body>
+		<div class="grid">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Node.js Parameters</h2>
+		<h4>index.js</h4>
+		<pre><code>
+		
+// JavaScript Document
+&quot;use strict&quot;;
+const fs = require('fs');
+
+// fs.writeFileSync('./result.txt', 'I wrote some text in a new document.');
+
+const sideA = parseFloat(process.argv[2]);
+const sideB = parseFloat(process.argv[3]);
+
+if(isNaN(sideA) || isNaN(sideB)) {
+    console.log(&quot;Error! Please pass valid numbers for all arguments.&quot;);
+};
+
+var sideC2 = Math.pow(sideA, 2) + Math.pow(sideB, 2);
+var sideC = Math.sqrt(sideC2).toFixed(2);
+
+ fs.writeFileSync('./result.txt', `We've made a triangle. Side A is ${sideA} inches long. 
+ Side B is ${sideB} inches long.` + 'n' + `This means that Side C needs to be about ${sideC} inches long.` + 'n -M Reitmayer');
+
+const message = fs.readFileSync('./result.txt','utf8');
+
+console.log(message);
+		
+		
+		
+		
+		
+		</code></pre>
+		
+		<p>The code above is what my project is. It is having you set the parameters for the code. This code does the Pythagorean Theorem. You give the A and B variables, and it calculates the C. A^2 + B^2 = C^2</p>
+		
+		<h4>Result</h4>
+		<img src="images/result.png" alt="">
+		
+		<h4>Text file</h4>
+		<img src="images/text.png" alt="">
+		
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

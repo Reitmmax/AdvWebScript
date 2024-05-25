@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Installing Packages</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Installing Packages</h2>
+		<img src="images/packagecreate.png" alt="">
+		<p>This was the code for the package I created. I had to created the name, the version, what code the package is loading, keywords for the package, and my name. It created a file called "package.json" </p>
+		<img src="images/packcreate2.png" alt="">
+		<p>This is the code that was put in package.json</p>
+		
+		
+		
+		
+		
+		<h4>index.js</h4>
+		<pre><code>		
+// JavaScript Document
+&quot;use strict&quot;
+const _ = require('lodash');
+
+var $array01 = ['Rose', 'Tulip', 'Orchid', 'Hyacinth', 'Lily', 'Daffoldil'];
+var $array02 = ['Poppy', 'Sunflower', 'Hyacinth', 'Bellflower', 'Cactus', 'Rose'];
+// Javascript code
+//var $result = [];
+//
+//for (let i = 0; i &lt; $array01.length; i++) {
+//if ($array02.indexOf($array01[i] !== -1)) {
+//let indexpos = $array02.indexOf($array01[i]);
+//$result.push($array02[indexpos]);
+//}
+//}
+//console.log($result);
+
+
+// Lodash
+console.log(_.intersection($array01,$array02));
+
+		</code></pre>
+		
+		<p>This is what my package is doing! The code is trying to see which parts in both arrays are the same! In this case, it would be "Rose" and "Hyacinth". We are using the dependency Lodash to achieve this!</p>
+		
+		<h4>Vanilla JS</h4>
+		<img src="images/node.png" alt="">
+		<h4>Lodash</h4>
+		<img src="images/lodash.png" alt="">
+		<p>This showcases the difference between vanilla JavaScript and Lodash.</p>
+		
+		<h4>package.json</h4>
+		<pre><code>
+		{
+  &quot;name&quot;: &quot;m08pack&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;This is my first step to making a package. I am using Lodash&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node index.js&quot;,
+    &quot;dev&quot;: &quot;nodemon index.js&quot;
+  },
+  &quot;keywords&quot;: [
+    &quot;Lodash&quot;,
+    &quot;Simple&quot;,
+    &quot;First&quot;,
+    &quot;Package&quot;
+  ],
+  &quot;author&quot;: &quot;M Reitmayer&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.21&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;nodemon&quot;: &quot;^3.1.0&quot;
+  }
+}
+
+		</code></pre>
+		<p>This is what my package is doing! We installed nodemon, which allows you to change the code in real time! Because of this code, if we were to type in "npm start" it will use the command "node index.js". If we were to type in "npm run dev", it will use the command "nodemon index.js". node index.js would run the script once, so if you were to make any changes, it wouldn't show until you reset, while nodemon index.js lets the code run in real time. Whatever updates you put in the code, it will show up in the code</p>
+			
+				<h4>Nodemon Example</h4>
+			<img src="images/nodemon.png" alt="">
+			<p>This is what happened when I ran the dev code. In the original array, it did not have 'Rose' in both arrays, so I added it and it updated the code in real time.</p>
+			
+</main>			
+			
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

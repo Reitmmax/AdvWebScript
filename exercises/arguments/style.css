@@ -1,0 +1,180 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	padding: 0;
+	
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=PT+Serif&display=swap');
+
+.grid {
+	    display: grid;
+    grid-template-rows: 50px  1fr 3em;
+    grid-template-columns: 1fr;
+     grid-template-areas:
+      "nav "
+      " main"
+      " footer";
+}
+
+header {
+	grid-area: banner;
+	position: relative;
+}
+
+header img {
+	grid-area: banner;
+	height: 200px;
+	width: 100%;
+}
+
+header h1 {
+	position: absolute;
+	font-size: 50px;
+	color:#FFFCFC;
+	left: 0;
+	right: 0;
+  margin-left: auto;
+  margin-right: auto;
+text-align: center;
+	width: 450px;
+	padding-bottom: 10px;
+	font-family: 'Fira Sans', sans-serif;
+}
+#hfix {
+	width: 20%;
+	
+}
+
+nav {
+	grid-area: nav;
+	display: flex;
+	background-color: #232770;
+top: 0;
+	flex-direction: row;
+	
+}
+
+nav ul {
+    list-style-type:none;
+    display: flex;
+flex-direction: row;
+    flex-wrap: wrap;
+    
+    
+}
+nav ul li {
+	margin: 3px 40px;
+	
+	
+}
+
+nav li a {
+	text-decoration: none;
+	color:#C2C4F0;
+}
+
+nav li a:hover {
+	color:#FFFCFC;
+}
+body {
+	background-color:#ECECEC;
+	width: 100%;
+}
+footer {
+	grid-area: footer;
+	background-color: #232770;
+	color:#C2C4F0;
+	text-align:center;
+}
+/* for when there isn't enough content to put the footer on the bottom */
+#footerfix {
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}
+
+main {
+	grid-area: main;
+	margin-bottom: 50px;
+}
+
+main p {
+	padding-left: 15px;
+	padding-right: 25px;	
+	font-family: 'PT Serif', serif ;
+	font-size: 20px;
+	text-align: justify;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;
+	
+}
+
+#landing {
+	width: 75%;
+	display: block;
+	text-align: center;
+
+}
+
+img {
+	width: 1000px;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;	
+}
+
+.max img {
+    border-radius: 100px;
+    height: 250px;
+	width: auto;
+    padding-top: 30px;
+} 
+
+
+h2 {
+	font-family: 'Fira Sans', sans-serif;
+	font-size: 40px;
+	text-align: center;
+}
+
+h3 {
+	font-family:'Fira Sans', sans-serif;
+	font-size: 30px;
+	text-align: center;
+}
+h4 {
+	font-family:'Fira Sans', sans-serif;
+	font-size: 20px;
+	text-align: center;
+}
+
+input {
+	width: 200px;
+	padding: 5px;
+	margin: 20px;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;
+	background-color: #232770;
+	color:#C2C4F0;
+}
+
+input:hover {
+	color:#FFFCFC;
+}
+
+@media screen and (max-width: 800px ) {
+	#landing {
+	width: 90%;
+	display: block;
+	text-align: center;
+
+}
+	#hfix {
+	width: 35%;
+	
+}
+	
+}

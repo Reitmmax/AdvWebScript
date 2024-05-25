@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+<title>Node.js</title>
+	
+</head>
+	<body>
+		<div class="grid">
+			
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+		<li><a href="../../Exercise.html">Exercises</a></li>
+			<li><a href="../../Project.html">Projects</a></li>
+		</ul>
+			</nav>
+	
+		<main>
+			<h2>Node.js Scripting</h2>
+			<h4>m05_1</h4>
+			<pre>
+			<code>
+// JavaScript Document
+&quot;use strict&quot;;
+
+const $mess1 = 'These are words. Some more words.';
+const $mess2 = 'This is a phrase. A very short sentence. A slightly kind of maybe long sentence.';
+
+const $parag = ($part) =&gt; {
+  console.log(`This is a paragraph made of different stuff. ${$part}`);
+};
+
+$parag($mess2);
+						
+			</code>
+			</pre>
+			<p>This code has 3 constants, $mess1, $mess2 and $parag. mess1 and mess2 are simply just strings. parage is using $part to add one of the two constants above to its code. In this case, I have it calling $mess2. The message should display: "This is a paragraph made of different stuff. This is a phrase. A very short sentence. A slightly kind of maybe long sentence." because it is combining them in $parag($mess2). </p>
+		
+		<img src="node.js/m05_1.png" alt="How the code for m05_1 works">
+		
+		<h4>M05_2</h4>
+		<pre>
+		<code>
+		// JavaScript Document
+&quot;use strict&quot;;
+
+const $mess1 = 'These are words. Some more words.';
+const $mess2 = 'This is a phrase. A very short sentence. A slightly kind of maybe long sentence.';
+
+const $messages = [$mess1, $mess2];
+
+var $states = 1;
+
+const $rating = ($states &gt; 2) ? 'There are a lot of statements here.' : 'This is a fairly short statement.';
+
+const $parag = ($part) =&gt; {
+  console.log(`This is a paragraph made of different stuff. ${$part}`);
+};
+
+let i = 0;
+while (i &lt;= 1) {
+$parag($messages[i]);
+$states++;
+i++;
+}
+
+console.log($rating);
+		</code>
+		</pre>
+		<p>This is the second part of the project. This time, we decided to put $mess1 and $mess2 into an array. We also made a new varible called "$state" and a new constant called "$rating". Essentially, what this code is doing is calling the array, then displaying what is in that part of the array, then calls the next part, and so on. When its done, it calls $rating and displays "This is a fairly short statment" because states should be equal to 3. If it was less than 2, it would instead display: "There are a lot of statements here" </p>
+		<img src="node.js/m05_2.png" alt="What m05_2 displays">
+		
+		<h4>m05_func</h4>
+		<pre>
+		<code>
+	&quot;use strict&quot;
+const $parag = ($part) =&gt; {
+  console.log(`This is a paragraph made of different stuff. ${$part}`);
+};
+
+
+module.exports = $parag;
+		
+		</code>
+		</pre>
+		<br>
+		<h4>m05_messages</h4>
+		<pre>
+		<code>
+&quot;use strict&quot;
+const $mess1 = 'These are words. Some more words.';
+const $mess2 = 'This is a phrase. A very short sentence. A slightly kind of maybe long sentence.';
+
+module.exports = [$mess1, $mess2];
+		
+		</code>
+		</pre>
+		<br>
+		<h4>m05_app</h4>
+		<pre>
+<code>
+const $messages = require('./M05_messages');
+
+const $parag = require('./M05_func');
+
+var $states = 1;
+
+$parag('This is a test sentence. Short and sweet. Does it work?');
+
+let i = 0;
+while (i &lt;= 1) {
+$parag($messages[i]);
+$states++;
+i++;
+}
+const $rating = ($states &gt; 2) ? 'There are a lot of statements here.' : 'This is a fairly short statement.';
+console.log($rating);
+		
+		</code>
+		</pre>
+			<p>This code does essentially the same thing that the m05_2 code is doing. This time it is using external files for the variables and constants. We but the 2 $mess const in its own file and we put $parag in another one. We simply just called them to this document.</p>
+			<img src="node.js/m05_app.png" alt="displays code for m05_app">
+		
+			</main>
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		</div>
+		
+</body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</html>
