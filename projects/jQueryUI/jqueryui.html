@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plugin Ui</title>
+	 <link rel="stylesheet" href="jquery-ui-1.13.2.custom/jquery-ui.min.css">
+	<link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+	<h2>Joe's Pizzaria</h2>
+	
+	<p>Order your pizza below!</p>
+	
+	<h3>Toppings</h3>
+	<section class="toppings">
+	<h3 class="demoHeaders">Meats</h3>
+<select id="selectmenu">
+	<option>Pepperoni</option>
+	<option>Salami</option>
+	<option selected="selected">Hamburger</option>
+	<option>Ham</option>
+	<option>None</option>
+</select>
+		
+			<h3 class="demoHeaders">Vegetables</h3>
+<select id="selectmenu">
+	<option>Mushrooms</option>
+	<option>Black Olives</option>
+	<option selected="selected">Jalapenos</option>
+	<option>Green Peppers</option>
+	<option>None</option>
+</select>
+</section>
+	
+	
+	<h3 class="demoHeaders">Crusts</h3>
+<form style="margin-top: 1em;">
+	<div id="radioset">
+		<input type="radio" id="radio1" name="radio"><label for="radio1">Deep Dish</label>
+		<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">Thin</label>
+		<input type="radio" id="radio3" name="radio"><label for="radio3">Stuffed</label>
+	</div>
+</form>
+	
+	
+	<h3>How many Pizzas?</h3>
+<input id="spinner">
+	
+	<br>
+	<a href="complete.html"><button id="button">Complete the Order!</button></a>
+	
+
+	
+<footer><p>&copy; Max Reitmayer 2024</p></footer>
+	</body>
+	
+	 <script src="jquery-ui-1.13.2.custom/external/jquery/jquery.js"></script>
+    <script src="jquery-ui-1.13.2.custom/jquery-ui.js"></script>
+	  <script>
+  $(document).ready(function(){
+    
+   $( "#progressbar" ).progressbar({
+	value: 20
+});
+
+$( "#spinner" ).spinner();
+  });
+</script>
+</html>

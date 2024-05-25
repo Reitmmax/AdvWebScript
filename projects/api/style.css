@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+
+  img {
+      width: auto; 
+      height: 300px;
+    }
+
+h1, h2, p {
+	text-align: center;
+	
+	
+}
+body {
+	background-color:#F6F2F2;
+}
+
+header {
+	background-color: rgba(4,121,18,0.61);
+}
+
+button {
+	background-color: rgba(242,6,67,0.64);
+	color: #EBEBEB;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.card-info {
+  max-width: 600px;
+  text-align: left; /* Align text to the left */
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+ 
+  margin-bottom: 10px; /* Add some space between image and text */
+}
+
+.text-container {
+	display: none;
+  border: 1px solid black; /* Add border to text container */
+  padding: 10px; /* Add padding to text container */
+	background-color:rgba(5,107,174,0.40);
+}
+
+#searchForm {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-bottom: 10px; /* Add some space below the form */
+}
+
+#searchInput {
+  margin-right: 5px; /* Add some space between input and button */
+}
+

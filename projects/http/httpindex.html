@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	
+
+<title>MR HTTP Server</title>
+</head>
+	<body>
+		<div class="grid">
+	
+			<header>
+			<img src="banner.jpg" alt="">
+			
+			</header>
+			
+			<main>
+			<h2>Welcome to Max's Server Page!</h2>
+				<p>I will be show casing how to use http servers and how to navigate between them! I will be using node.js to create the server and I will have a web app that uses web storage as well!</p>
+				<input type="button" id="app" value="Web Storage App">
+		
+			</main>
+			
+			
+			<footer id="footerfix">&copy; Max Reitmayer 2024</footer>
+		</div>
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+  $("#app").click( () => {
+		   location.replace("/app");
+  });
+	
+	</script>
+</html>

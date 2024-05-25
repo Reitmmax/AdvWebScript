@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>API Queries</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+	
+		
+		
+		
+		
+		
+		
+		<h4>index.js</h4>
+		<pre><code>		
+
+// JavaScript Document
+&quot;use strict&quot;
+
+const express = require('express');
+const app = express();
+const {songs} = require('./data');
+
+//server
+app.get('/', (req,res)=&gt;{
+  res.send('&lt;h1&gt;The Soul of Music&lt;/h1&gt;&lt;a href=&quot;/api/songs&quot;&gt;Find artist and songs here!&lt;/a&gt;
+  &lt;p&gt;To search for artists type /api/songs/:artist and replace :artist with the name&lt;/p&gt;
+  &lt;p&gt;To search for albums type: /api/songs/album/:album and replace :album with the album name&lt;/p&gt;
+  &lt;p&gt;To find an ablum, artist, or name of a song type /query?search=term where term is the name you are looking for&lt;/p&gt;')
+});
+
+//grabs data from data.js
+app.get('/api/songs', (req,res)=&gt;{ 
+
+	
+	//displays only data called
+const newListing = songs.map((song)=&gt;{
+        const {artist, track, album, length, year} = song;
+        return {artist, track, album, length, year}
+    })
+    res.json(newListing);
+
+});
+
+
+// Search by artist
+app.get('/api/songs/:artist', (req, res) =&gt; {
+    console.log(req.params);
+    const { artist } = req.params;
+    const artistLowerCase = artist.toLowerCase();
+    const songsByArtist = songs.filter((song) =&gt; song.artist.toLowerCase() === artistLowerCase);
+    res.json(songsByArtist);
+});
+
+// Search by album
+app.get('/api/songs/album/:album', (req, res) =&gt; {
+    console.log(req.params);
+    const { album } = req.params;
+    const albumLowerCase = album.toLowerCase();
+    const songsByAlbum = songs.filter((song) =&gt; song.album.toLowerCase() === albumLowerCase);
+    res.json(songsByAlbum);
+});
+
+
+
+//search by album
+app.get('/query', (req, res) =&gt; {
+    const { search, limit } = req.query;
+    let sorted = [...songs];
+
+    if (search) {
+        const searchLowerCase = search.toLowerCase();
+        sorted = sorted.filter((song) =&gt; {
+            return song.artist.toLowerCase().includes(searchLowerCase) ||
+                   song.track.toLowerCase().includes(searchLowerCase) ||
+                   song.album.toLowerCase().includes(searchLowerCase);
+        });
+    }
+
+    if (limit) {
+        sorted = sorted.slice(0, Number(limit));
+    }
+
+    if (sorted.length &lt; 1) {
+        res.status(200).json(&quot;No items matching your query were found.&quot;);
+    }
+
+    res.status(200).json(sorted);
+});
+
+
+
+
+
+
+ app.get(&quot;*&quot;, (req, res) =&gt; {
+    res.status(404).send(&quot;This isn't the page you're looking for!&quot;);
+  });
+
+
+
+app.listen(8080,()=&gt;{
+    console.log('Server is running...');
+});
+
+		</code></pre>
+		
+		
+		<h4>data.js</h4>
+		<pre><code>
+	// JavaScript Document
+
+const songs = [
+    {
+		id: '1',
+       artist: 'Green Day',
+		track: 'Jesus of Suburbia',
+		album: 'American Idiot',
+		length: '9:09',
+		year: '2004'
+		
+    },
+    {
+		id: '2',
+        artist: 'Green Day',
+		track: 'Basket Case',
+		album: 'Dookie',
+		length: '3:01',
+		year: '1994'
+    },
+    {
+		id: '3',
+     artist: 'Milky Chance',
+		track: 'Stolen Dance',
+		album: 'Sadnessary',
+		length: '5:12',
+		year: '2013'
+    },
+    {
+		id: '4',
+       artist: 'Sure Sure',
+		track: 'Funky Galileo',
+		album: 'Funky Galileo',
+		length: '4:06',
+		year: '2020'
+    },
+	   {
+		id: '5',
+       artist: 'Coyote Kid',
+		track: 'Femme Fatale',
+		album: 'The Skeleton Man',
+		length: '3:19',
+		year: '2019'
+    },
+	   {
+		id: '6',
+       artist: 'Kevin Walkman',
+		track: 'OhNo!',
+		album: 'OhNo!',
+		length: '3:07',
+		year: '2020'
+    },
+	   {
+		id: '7',
+       artist: 'The Haunt',
+		track: 'Cigarettes and Feelings',
+		album: 'Cigarettes and Feelings',
+		length: '3:32',
+		year: '2019'
+    },
+	   {
+		id: '8',
+       artist: 'Green Day',
+		track: 'Letterbomb',
+		album: 'American Idiot',
+		length: '4:08',
+		year: '2004'
+    },
+	   {
+		id: '9',
+       artist: 'Friday Pilots Club',
+		track: 'PRBLM',
+		album: 'PRBLM',
+		length: '3:36',
+		year: '2018'
+    },
+	   {
+		id: '10',
+       artist: 'Friday Pilots Club',
+		track: 'Gold and Bones',
+		album: 'Gold and Bones',
+		length: '3:28',
+		year: '2018'
+    },
+]
+//exports module
+module.exports = {songs};// JavaScript Document
+
+		</code></pre>
+		<p>I made an app that displays artist, album, and track names as well as the year they were released. This is displayed in localhost:8080/api/songs. I also made it so you can search for artists (/api/songs/:artist) and albums (/api/songs/album/:album). For my query, I just had it include artist name, album name, and track name whenever you do /query?search=insert name here.</p>
+		
+		<h2>Landing</h2>
+		<img src="Images/landing.png" alt="">
+		<h2>Artist (/api/songs/Friday Pilots Club)</h2>
+		<img src="Images/artists.png" alt="">
+		<h2>Album (/api/songs/album/American Idiot)</h2>
+		<img src="Images/albums.png" alt="">
+		<h2>Query Search(/query?search=stolen dance)</h2>
+		<img src="Images/query.png" alt="">	
+		
+			
+</main>			
+			
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

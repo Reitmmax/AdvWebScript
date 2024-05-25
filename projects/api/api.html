@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>API Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+	<header>
+<h1>Magic: The Gathering Card Search</h1>
+	<p>Search for a card from the history of Magic!</p>
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Enter card name">
+    <button type="submit">Search</button>
+  </form>
+		</header>
+	<main>
+   <div id="cardInfo" class="card-info">
+    <div class="image-container" id="imageContainer"></div>
+   <div class="text-container" id="textContent"></div>
+  </div>
+	
+	</main>
+	
+	
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script src="api.js"></script>
+	
+</body>
+</html>

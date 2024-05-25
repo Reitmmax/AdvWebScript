@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Middleware Project</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Middleware and Routing</h2>
+		<h4>index.js</h4>
+		<pre><code>		
+		// index.js
+
+const express = require('express');
+const app = express();
+const artistRoute = require('./route/artistRoute');
+const randomArtistMiddleware = require('./artist');
+const randomGenreMiddleware = require('./genre');
+
+//landing page
+app.get('/', (req, res) =&gt; {
+  res.status(200).send('&lt;h1&gt;Welcome to the landing page!&lt;/h1&gt;&lt;p&gt; 
+  Use /artist/genrename to find an artist with the genre you want. 
+  Use /artist-name to get a random artist, use /genre-name to get a random genre, 
+  and use /artist-and-genre to get a random artist and genre&lt;/p&gt;');
+});
+// Include artists route
+app.use('/artist', artistRoute);
+
+
+
+
+// Routes for /artist-name, /genre-name, and /artist-and-genre
+app.get('/artist-name', randomArtistMiddleware, (req, res) =&gt; {
+  const { randomArtist } = res.locals;
+  res.status(200).send(`Random Artist: ${randomArtist}`);
+});
+
+app.get('/genre-name', randomGenreMiddleware, (req, res) =&gt; {
+  const { randomGenre } = res.locals;
+  res.status(200).send(`Random Genre: ${randomGenre}`);
+});
+
+app.get('/artist-and-genre', randomGenreMiddleware, randomArtistMiddleware, (req, res) =&gt; {
+  const { randomArtist, randomGenre } = res.locals;
+  res.status(200).send(`Random Artist and Genre&lt;br&gt; ${randomArtist}&lt;br&gt; ${randomGenre}`);
+});
+
+// Starting the server
+app.listen(8080, () =&gt; {
+  console.log(`Server running at http://localhost:8080/`);
+});
+
+		</code></pre>
+		
+		<p>This is my server code. This code is using middleware from external sources. This code uses my middleware to choose a random artist and/or genre and display that.</p>
+		
+		<h2>Middleware</h2>
+		<h4>genre.js</h4>
+		<pre><code>
+
+const { artist } = require('./data');
+
+// Middleware function to select a random genre
+const randomGenreMiddleware = (req, res, next) =&gt; {
+  const genres = artist.map(a =&gt; a.genre);
+  const randomIndex = Math.floor(Math.random() * genres.length);
+  res.locals.randomGenre = genres[randomIndex];
+  next();
+};
+
+module.exports = randomGenreMiddleware;
+
+		</pre></code>
+		
+		<h4>artist.js</h4>
+		<pre><code>
+		
+
+const { artist } = require('./data');
+
+// Middleware function to select a random artist
+const randomArtistMiddleware = (req, res, next) =&gt; {
+  const randomIndex = Math.floor(Math.random() * artist.length);
+  res.locals.randomArtist = artist[randomIndex].artist;
+  next();
+};
+
+module.exports = randomArtistMiddleware;
+
+		</pre></code>
+		<p>These are my middleware. My genre selects a random genre from my JavaScript list, while my artist does the same thing, but with artists.</p>
+		<h2>Routing</h2>
+
+		<h4>genreController.js</h4>
+		<pre><code>
+		
+const { artist } = require('../../data');
+
+// Callback function to get all artists
+const getAllArtists = (req, res) =&gt; {
+  res.json(artist);
+};
+
+// Callback function to get artists by genre
+const getArtistsByGenre = (req, res) =&gt; {
+  const { genre } = req.params;
+  const filteredArtists = genre ? artist.filter(a =&gt; a.genre === genre) : artist;
+  res.json(filteredArtists);
+};
+
+module.exports = { getAllArtists, getArtistsByGenre };
+
+		</pre></code>
+		<p>This is my controller. It creates callback functions that my router below calls.</p>
+			<h4>artistRoute.js</h4>
+		<pre><code>
+		
+
+const express = require('express');
+const router = express.Router();
+const { getAllArtists, getArtistsByGenre } = require('./controller/genreController');
+const randomArtistMiddleware = require('../artist');
+const randomGenreMiddleware = require('../genre');
+
+// Route to get all artists
+router.get('/', getAllArtists);
+
+// Route to get artists by genre
+router.get('/:genre?', randomGenreMiddleware, getArtistsByGenre);
+
+module.exports = router;
+
+
+		</pre></code>
+		<p>This sets up my routing</p>
+		<h4>data.js</h4>
+		<pre><code>
+const artist = [
+    {
+       artist: &quot;Green Day&quot;,
+		genre: &quot;rock&quot;,
+		lastAlbum: &quot;Survivors&quot;,
+		albumYear:&quot;2024&quot;
+      
+    },
+    {
+        
+        artist: &quot;Kendrick Lamar&quot;,
+		genre: &quot;rap&quot;,
+		lastAlbum: &quot;Mr. Morale &amp; the Big Steppers &quot;,
+		albumYear:&quot;2022&quot;  
+    },
+    {
+          artist: &quot;Drake&quot;,
+		genre: &quot;rap&quot;,
+		lastAlbum: &quot;For All the Dogs&quot;,
+		albumYear:&quot;2023&quot;
+     
+    },
+    {
+        
+       artist: &quot;Friday Pilots Club&quot;,
+		genre: &quot;rock&quot;,
+		lastAlbum: &quot;We Don't Wanna Talk&quot;,
+		albumYear:&quot;2024&quot;
+    },
+	 {
+          artist: &quot;Imagine Dragons&quot;,
+		genre: &quot;pop&quot;,
+		lastAlbum: &quot;Mercury &ndash; Acts 1 &amp; 2&quot;,
+		albumYear:&quot;2022&quot;
+     
+    },
+	 {
+          artist: &quot;Maroon 5&quot;,
+		genre: &quot;pop&quot;,
+		lastAlbum: &quot;Jordi&quot;,
+		albumYear:&quot;2021&quot;
+     
+    },
+	 {
+          artist: &quot;Eminem&quot;,
+		genre: &quot;rap&quot;,
+		lastAlbum: &quot;E12&quot;,
+		albumYear:&quot;2024&quot;
+     
+    },
+]
+module.exports = {artist}
+
+
+
+
+		</pre></code>
+	<p>This is where my data is being taken from.</p>
+		<h2>Information Display</h2>
+		<h4>/</h4>
+		<img src="images/landing.png" alt="">
+		<h4>/artist</h4>
+		<img src="images/api list.png" alt="">
+		<h4>/artist/rock</h4>
+		<img src="images/api results.png" alt="">
+		<h4>/artist-name</h4>
+		<img src="images/artistname.png" alt="">
+		<h4>/genre-name</h4>
+		<img src="images/genrename.png" alt="">
+		<h4>/artist-and-genre</h4>
+		<img src="images/artistandgenre.png" alt="">
+		
+		
+		
+		
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

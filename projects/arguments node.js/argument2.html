@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Node.js Argument</title>
+</head>
+	<body>
+		<div class="grid">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Node.js Arguments</h2>
+		<h4>project.js</h4>
+		<pre><code>
+		
+&quot;use strict&quot;;
+const fs = require('fs');
+
+
+const name = process.argv[2];
+const birthYear = parseFloat(process.argv[3]);
+
+if( !name || isNaN(birthYear)) {
+    console.log(&quot;Error! Please enter values!&quot;);
+};
+ const currentYear = new Date().getFullYear();
+    const age = currentYear - birthYear; 
+ 
+
+
+fs.writeFileSync('result.txt', `My name is ${name} and I was born in ${birthYear}! I am currently ${age} years old.`);
+
+
+const message = fs.readFileSync('./result.txt','utf8');
+
+console.log(message);
+		
+		
+		
+		
+		
+		
+		</code></pre>
+		
+		<p>The code above is what my project is. It is having you set the parameters for the code. Simply, you give your name, and the year you were born, then it writes it out in the console. The code also subtracts birthYear from currentYear to get the age of the person. The birthYear has to be a number.</p>
+		
+		<h4>Result</h4>
+		<img src="images/argument.png" alt="">
+		
+		<h4>Text file</h4>
+		<img src="images/text.png" alt="">
+		
+		<input type="button" id="home" value="Back to Home">
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		  $("#home").click( () => {
+		    history.back();
+			 // console.log("button was pressed");
+			//  location.replace("argument.html");
+  });
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

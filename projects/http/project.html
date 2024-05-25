@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>HTTP and Web Storage</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>HTTP Server</h2>
+		<h4>http.js</h4>
+		<pre><code>		
+		// JavaScript Document
+'use strict'
+
+const http = require('http');
+const {readFileSync} = require('fs');
+//Get Files
+const apppg = readFileSync('app.html');
+const indexpg = readFileSync('httpindex.html');
+const errorpg = readFileSync('404.html')
+const mainsty = readFileSync('style.css');
+const appjs = readFileSync('app.js')
+const banimg = readFileSync('banner.jpg');
+
+const server = http.createServer((req,res)=&gt;{
+
+	const url = req.url;
+	   if(url === '/'){ //index
+        res.writeHead(200,{'content-type':'text/html'});
+       
+		res.write(indexpg);
+        res.end();
+    } else if (url === '/style.css') {
+		 res.writeHead(200,{'content-type':'text/css'});
+       
+		res.write(mainsty);
+        res.end();
+	} else if (url === '/banner.jpg') {
+		 res.writeHead(200,{'content-type':'image/jpeg'})
+		res.write(banimg);
+        res.end();
+	} else if (url === '/app.js'){
+		 res.writeHead(200,{'content-type':'application/javascript'})
+		res.write(appjs);
+        res.end();
+	} else if(url === '/app'){// web app
+        res.writeHead(200,{'content-type':'text/html'});
+        res.write(apppg);
+		res.end();
+    }  else {// error
+		res.writeHead(200,{'content-type':'text/html'});
+        res.write(errorpg);
+        res.end();
+	}
+	
+});
+
+server.listen(8080);
+console.log('Server reached');
+		</code></pre>
+		
+		<p>This is my server code. My server is set up to localhost:8080. If the slug has nothing, it goes to my index, if it has 'app', it goes to my web app. It also displays my banner image, javascript code for my app, and my stylesheet.</p>
+		
+		<h2>Calculator App</h2>
+		<h4>app.js</h4>
+		<pre><code>
+		// JavaScript Document
+		'use strict' 
+
+function calculate(operation) {
+      const num1 = parseFloat($('#num1').val()); // gets result from num1
+      const num2 = parseFloat($('#num2').val()); // gets result from num2
+
+      if (isNaN(num1) || isNaN(num2)) { // if nothing is entered...
+        alert('Please enter valid numbers');
+        return;
+      }
+
+      let result; // sets up variable 'result'
+      let expression; // sets up variable 'expression'
+
+      switch (operation) { // switch between operations dependent on what was clicked
+        case 'add':
+          result = num1 + num2;
+          expression = `${num1} + ${num2} = ${result}`;
+          break;
+        case 'subtract':
+          result = num1 - num2;
+          expression = `${num1} - ${num2} = ${result}`;
+          break;
+        case 'multiply':
+          result = num1 * num2;
+          expression = `${num1} * ${num2} = ${result}`;
+          break;
+        case 'divide':
+          if (num2 === 0) {
+            alert('Cannot divide by zero');
+            return;
+          }
+          result = num1 / num2;
+          expression = `${num1} / ${num2} = ${result}`;
+          break;
+        default:
+          alert('Invalid operation');
+          return;
+      }
+
+      $('#expression').text(expression); // show the equation
+      $('#result').text(result); // show the result
+
+  
+let previousResults = localStorage.getItem('calculatorResults') ? localStorage.getItem('calculatorResults').split(',') : []; // retrieves result 
+// ? if there is already a result, add it to the array 
+// : if there are no stored results, assign to whatever the previous result.
+
+
+previousResults.push(expression); // Add the new expression to the array
+
+
+localStorage.setItem('calculatorResults', previousResults.join(',')); // Store the updated array in local storage
+
+displayResults(previousResults); // Display the expressions
+
+localStorage.setItem('calculatorResult', result); // Store the current result in web storage
+
+    }
+    function clearData() {
+
+  localStorage.removeItem('calculatorResults');  // Clear the stored results in local storage
+
+  
+  displayResults([]);// Clear the displayed results on the page
+
+ 
+  localStorage.removeItem('calculatorResult');  // Clear the current result in web storage
+}
+
+function editData() {
+  
+  let previousResults = localStorage.getItem('calculatorResults') ? localStorage.getItem('calculatorResults').split(',') : []; // Retrieve the stored results from local storage 
+
+  // Ensure there are previous results to edit
+  if (previousResults.length === 0) {
+    alert('No results to edit');
+    return;
+  }
+
+
+  const lastIndex = previousResults.length - 1;   // Get the index of the last result
+
+  
+  const lastResult = previousResults[lastIndex]; // Get the last result
+
+ 
+  const newEquation = prompt('Enter the new equation.( / is division, and * is multiplication ):');  // Prompt the user for a new equation
+
+  if (!newEquation) {
+    // if nothing is typed, or if the action is cancelled, return to page.
+    return;
+  }
+
+  
+  try { // Attempt to evaluate the new equation
+    const result = eval(newEquation); // Using eval to perform the calculation
+    const expression = `${newEquation} = ${result}`; // Whatever is typed in the text box is now the equation
+
+    // Update the result and expression on the webpage
+    $('#expression').text(expression);
+    $('#result').text(result);
+
+    
+    previousResults[lastIndex] = expression; // Update the last result in the array
+
+    
+    localStorage.setItem('calculatorResults', previousResults.join(',')); // Store the updated array in local storage
+
+  
+    displayResults(previousResults);   // Display the expressions
+
+    
+    localStorage.setItem('calculatorResult', result); // Store the current result in web storage
+  } catch (error) { // if the prompt does work...
+    alert('Invalid equation. Please enter a valid expression.');
+  }
+}
+$(document).ready(() =&gt; { 
+     
+  displayResults(localStorage.getItem('calculatorResults') ? localStorage.getItem('calculatorResults').split(',') : []); // Display previous results on page load
+});
+
+function displayResults(results) {
+  $('#results').empty(); // Clear previous results
+
+  if (results &amp;&amp; results.length &gt; 0) { // if results is valid, and if results has an array...
+    results.forEach((expression) =&gt; {
+      $('#results').append(`&lt;li&gt;${expression}&lt;/li&gt;`); // puts the previous equations in a list
+    });
+  } else {
+    $('#results').append('&lt;li&gt;No results available&lt;/li&gt;'); // if there's no previous equations, display this
+  }
+	
+}
+		</pre></code>
+		<p>A basic summary of my code is that it is a calculator. This app does the basic functions: addition, substraction, multiplication, and division. It then stores that data in the local storage. I have it display it as "previous results". When you want to clear all the data, you can click the clear data button. If you want to edit a result, it will take the last result you put in and replace it with whatever you put in the prompt box (if valid)</p>
+		<h2>App Page</h2>
+		<div id="pictures">
+		<img src="project/nodata.png" alt="No data on page">
+			<p>This is what the page looks like with no data</p>
+		<img src="project/data.png" alt="some data on stage">
+			<p>This is what the page looks like with some data</p>
+		<img src="project/editbox.png" alt="What displays when you edit">
+			<p>This is what the "edit" box looks like</p>
+			
+			
+			<br><p>Here are some links to the pages without using http: <a href="httpindex.html">Main</a>, <a href="app.html">App</a>, <a href="404.html">404</a></p>
+			<p>NOTE: The buttons on the pages WILL NOT work! They are specifically for http!</p>
+	</div>
+		
+		
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

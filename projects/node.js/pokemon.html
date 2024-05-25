@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" type="x-icon" href="img/logo.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>Pokemon App</title>
+</head>
+	<body>
+		<div class="grid">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+		<li><a href="../../Exercise.html">Exercises</a></li>
+			<li><a href="../../Project.html">Projects</a></li>
+		</ul>
+			</nav>
+			<main>
+		<h4>Pokemon</h4>
+		<pre><code>
+// JavaScript Document
+&quot;use strict&quot;
+const pokemonArray = [&quot;Pikachu&quot;, &quot;Altaria&quot;, &quot;Rayquaza&quot;, &quot;Mr. Mime&quot;, &quot;Charizard&quot;];
+
+
+module.exports = pokemonArray;
+		
+		
+		
+		
+		</code></pre>
+		<h4>Favorite</h4>
+		<pre><code>
+// JavaScript Document
+&quot;use strict&quot;
+const pokemonArray = [&quot;Pikachu&quot;, &quot;Altaria&quot;, &quot;Rayquaza&quot;, &quot;Mr. Mime&quot;, &quot;Charizard&quot;];
+const randomIndex = Math.floor(Math.random() * pokemonArray.length); //chooses a random names in the array
+
+module.exports = randomIndex; 
+		
+		
+		
+		
+		
+		</code></pre>
+		<h4>Pokeapp</h4>
+		<pre><code>
+// JavaScript Document
+&quot;use strict&quot;
+
+const favoriteIndex = require('./favorite.js');
+const pokemonArray = require('./pokemon.js');
+
+const favorite = pokemonArray[favoriteIndex]; // selects a random number within the array and sets the value to what is in that spot
+
+function logFavoriteStatus(pokemon) {
+  if (pokemon === favorite) { // if the pokemon is the favorite...
+    console.log(`${pokemon} is my favorite Pokemon!`);
+  } else { // if the pokemon isn't the favorite...
+    console.log(`${pokemon} is not my favorite Pokemon.`);
+  }
+}
+
+// Using if/else statement
+for (let i = 0; i &lt; pokemonArray.length; i++) { // uses the array to set the pokemon variable
+  const pokemon = pokemonArray[i];
+  logFavoriteStatus(pokemon);
+}
+
+// Using switch statement with fall-through
+switch (favorite) { //switches between each pokemon, tells if it is the favorite or not.
+  case &quot;Pikachu&quot;:
+		 logFavoriteStatus(favorite); // calls the logFavoriteStatus function, which will tell which one is the favorite a second time.
+		break
+  case &quot;Altaria&quot;:
+		 logFavoriteStatus(favorite);
+		break
+  case &quot;Rayquaza&quot;:
+		 logFavoriteStatus(favorite);
+		break
+  case &quot;Mr. Mime&quot;:
+		 logFavoriteStatus(favorite);
+		break
+  case &quot;Charizard&quot;:
+    logFavoriteStatus(favorite); 
+    break; // exits switch
+  default:
+    console.log(&quot;No favorite Pokemon selected.&quot;);
+}
+		
+		
+		
+		
+		
+		
+		</code></pre>
+		<p>This project does 2 different things. First it uses the Pokemon array and randoming chooses from the array which one is the favorite Pokemon. I have it go through an if/else statement that displays if the Pokemon is the favorite or not. I used the if/else to also make my switch statement. The main difference between the 2 is that if/else displays every single one, while in the switch statment, I have it break as soon as it finds the favorite pokemon(which is why it is displayed twice in the picture below.) If the Pokemon is not the favorite, it simply just skips it and goes to the next part of the list.</p>
+		<img src="node.js/pokemon.png" alt="Pokemon app display" class="pokemon">
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>
+
+

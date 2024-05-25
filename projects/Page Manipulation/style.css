@@ -1,0 +1,171 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	padding: 0;
+	
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=PT+Serif&display=swap');
+
+
+
+
+
+#hfix {
+	width: 20%;
+	
+}
+
+nav {
+	grid-area: nav;
+	display: flex;
+	background-color: #232770;
+top: 0;
+	flex-direction: row;
+	
+}
+
+nav ul {
+    list-style-type:none;
+    display: flex;
+flex-direction: row;
+    flex-wrap: wrap;
+    
+    
+}
+nav ul li {
+	margin: 3px 40px;
+	
+	
+}
+
+nav li a {
+	text-decoration: none;
+	color:#C2C4F0;
+}
+
+nav li a:hover {
+	color:#FFFCFC;
+}
+body {
+	background-color:#ECECEC;
+	width: 100%;
+}
+footer {
+	grid-area: footer;
+	background-color: #232770;
+	color:#C2C4F0;
+	text-align:center;
+	height: 50px;
+}
+
+footer p {
+	padding-top: 15px;
+}
+/* for when there isn't enough content to put the footer on the bottom */
+#footerfix {
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}
+
+main {
+	grid-area: main;
+	margin-bottom: 50px;
+}
+
+main p {
+	padding-left: 100px;
+	padding-right: 100px;	
+	font-family: 'PT Serif', serif ;
+	font-size: 30px;
+	text-align: justify;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;
+	
+}
+
+cite {
+	padding-left: 100px;
+	text-align: justify;
+	  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+main img {
+	border-radius: 100px;
+	height: 250px;
+	padding-top: 30px;
+	  display: block;
+  margin-left: auto;
+  margin-right: auto;
+	
+  
+}
+*/
+h1 {
+	font-family: 'Fira Sans', sans-serif;
+	font-size: 56px;
+	text-align: center;
+}
+
+h2 {
+	font-family: 'Fira Sans', sans-serif;
+	font-size: 40px;
+	text-align: center;
+}
+
+h3 {
+	font-family:'Fira Sans', sans-serif;
+	font-size: 30px;
+	text-align: center;
+}
+
+#fact img {
+	height: 400px;
+	align-items: center;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.hide {
+	display: none;
+	
+}
+
+.BestGame {
+	
+}
+
+.BestSeries {
+	
+}
+
+.FirstGame {
+	
+}
+.BestConsole {
+	
+}
+
+.iconic{
+	
+}
+
+#buttons {
+	text-align: center;
+	    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#buttons button {
+	margin: 5px;
+	padding: 5px;
+	font-size: 15px;
+}
