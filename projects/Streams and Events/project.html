@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+
+<title>HTTP and Web Storage</title>
+</head>
+	<body>
+		<div class="grid2">
+			
+<nav>
+		
+		
+		<ul>
+		<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Project.html">Back To Projects</a></li>
+	</ul>
+			</nav>
+	
+			
+	<main>
+	
+		
+		<h2>Events and Streams</h2>
+		<h4>index.js</h4>
+		<pre><code>		
+		const fs = require('fs');
+const eventEmitter = require('events');
+const readline = require('readline');
+
+const rl = readline.createInterface(process.stdin, process.stdout);
+
+// Create custom chunk size for streaming data
+const CHUNK_SIZE = 64;
+
+// Define event emitters
+const emitterMess = new eventEmitter();
+const emitterGame = new eventEmitter();
+const emitterChar = new eventEmitter();
+
+// Function to manipulate data in various ways
+function manipulateData(character, game, name) {
+    // Capitalize the first character of the character's name
+    const capitalizedCharacter = character.charAt(0).toUpperCase() + character.slice(1);
+    // Capitalize the first character of the name
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
+    // Concatenate strings
+    const message = `${capitalizedName}'s favorite video game character is ${capitalizedCharacter}, from the game ${game}.`;
+
+    // Emit events with manipulated data
+    emitterMess.emit('message', message);
+    emitterChar.emit('character', capitalizedCharacter);
+    emitterGame.emit('game', game.toUpperCase());
+
+    // Write message to the output file synchronously
+    fs.writeFileSync('output.txt', `${message}\n`, { flag: 'a' }); // 'a' flag for appending
+
+    // Return manipulated data
+    return message;
+}
+
+// Event listener for emitterMess
+emitterMess.on('message', (data) => {
+    console.log(`${data}`);
+});
+
+// Event listener for emitterChar
+emitterChar.on('character', (character) => {
+    console.log(`Your favorite character is ${character}`);
+});
+
+// Event listener for emitterGame
+emitterGame.on('game', (game) => {
+    console.log(`Your favorite game is ${game}`);
+});
+
+// Ask for user's name
+rl.question('What is your name? ', (name) => {
+    rl.question('Enter your favorite video game character: ', (character) => {
+        rl.question('Enter the game it\'s from: ', (game) => {
+            // Manipulate data
+            manipulateData(character, game, name);
+
+            // Close readline interface
+            rl.close();
+        });
+    });
+});
+
+		</code></pre>
+		
+		<p>The code above allows you to input your name, your favorite video game character, and the game they are from. It uses that data to display text based on it and streams it to a .txt file.</p>
+		
+		<h3>Inputs</h3>
+		<img src="images/inputs.png" alt="">
+		<h3>Results</h3>
+		<img src="images/results.png" alt="">
+		<h3>Text File</h3>
+		<img src="images/text.png" alt="">
+		
+		
+		
+		
+			</main>
+
+			<footer><p>&copy; Max Reitmayer 2024</p></footer>
+		
+		</div>
+		
+</body>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</html>

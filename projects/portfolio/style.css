@@ -1,0 +1,210 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	padding: 0;
+	
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=PT+Serif&display=swap');
+
+header {
+	grid-area: banner;
+	position: relative;
+}
+
+header img {
+	grid-area: banner;
+	height: 200px;
+	width: 100%;
+}
+
+header h1 {
+	position: absolute;
+	font-size: 50px;
+	color:#FFFCFC;
+	left: 0;
+	right: 0;
+  margin-left: auto;
+  margin-right: auto;
+text-align: center;
+	width: 450px;
+	padding-bottom: 10px;
+	font-family: 'Fira Sans', sans-serif;
+}
+#hfix {
+	width: 20%;
+	
+}
+
+nav {
+	grid-area: nav;
+	display: flex;
+	background-color: #232770;
+top: 0;
+	flex-direction: row;
+	
+}
+
+nav ul {
+    list-style-type:none;
+    display: flex;
+flex-direction: row;
+    flex-wrap: wrap;
+    
+    
+}
+nav ul li {
+	margin: 3px 40px;
+	
+	
+}
+
+nav li a {
+	text-decoration: none;
+	color:#C2C4F0;
+}
+
+nav li a:hover {
+	color:#FFFCFC;
+}
+body {
+	background-color:#ECECEC;
+	width: 100%;
+}
+footer {
+height: 50px;
+	background-color: #232770;
+	color:#C2C4F0;
+	text-align:center;
+}
+footer p {
+	padding-top: 15px;
+}
+/* for when there isn't enough content to put the footer on the bottom */
+#footerfix {
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}
+
+main {
+	grid-area: main;
+	margin-bottom: 50px;
+}
+
+main p {
+	padding-left: 30px;
+	padding-right: 30px;	
+	font-family: 'PT Serif', serif ;
+	font-size: 25px;
+	text-align: justify;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+	
+}
+
+.portfolio p {
+ position: relative;
+  left: 100%;
+ text-align: center;
+  transition: left 0.5s ease;
+}
+
+main img {
+	border-radius: 100px;
+	height: 250px;
+	padding-top: 30px;
+	  display: block;
+  margin-left: auto;
+  margin-right: auto;
+	
+  
+}
+h1 {
+	text-align: center;
+	font-family: 'Fira Sans', sans-serif;
+	font-size: 45px;
+}
+
+h2 {
+	font-family: 'Fira Sans', sans-serif;
+	font-size: 40px;
+	text-align: center;
+	padding: 75px;
+
+}
+
+h3 {
+	font-family:'Fira Sans', sans-serif;
+	font-size: 30px;
+	text-align: center;
+}
+
+button {
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	  display: block;
+  margin-left: auto;
+  margin-right: auto;
+	 background-color: #232770;
+	
+	
+}
+button a:hover {
+	color:#FFFCFC;
+	
+}
+button a {
+	text-decoration: none;
+	color:#C2C4F0;
+}
+@media screen and (max-width: 800px ) {
+
+
+	#hfix {
+	width: 35%;
+	
+}
+	
+}
+
+.graphics {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	
+}
+
+
+.graphics video {
+	margin: 20px;
+	width: 275px;
+		justify-content: center;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+iframe {
+	width: 75%;
+	align-content: center;
+	 display: block;
+  margin-left: auto;
+  margin-right: auto;
+	
+}
+
+.slide {
+position: relative;
+  top: 100px; /* Set an initial top value that places the element below the viewport */
+  opacity: 0; /* Initially make the element transparent */
+  transition: top 0.5s ease, opacity 0.5s ease; 
+}
+
+.hidden {
+	visibility:hidden;
+	display: none;
+}
