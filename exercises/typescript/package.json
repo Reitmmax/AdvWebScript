@@ -1,0 +1,15 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "typescript package",
+  "main": "index.js",
+  "scripts": {
+	  "test": "tsc index && node index",
+"watch": "tsc -w"
+  },
+  "author": "Max Reitmayer",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.4.5"
+  }
+}
